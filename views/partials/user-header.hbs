@@ -17,13 +17,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">orders</a>
                 </li>
+
             </ul>
             <div class="dropdown col-md-3 ">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Account
+                    {{#if user}}
+                        {{user.Email}}
+                        {{else}}
+                        Account
+                    {{/if}}
+                    
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/login">login</a></li>
+                    {{#if user}}
+                        <li><a class="dropdown-item" href="/logout">logout</a></li>
+                        {{else}}
+                        <li><a class="dropdown-item" href="/login">login</a></li>
+                    {{/if}}
+                    
                 </ul>
             </div>
         </div>
