@@ -15,8 +15,10 @@
                     <a class="nav-link" href="#">Cart</a>
                 </li>
                 <li class="nav-item">
+                    {{#if user}}
                     <a class="nav-link" href="#">orders</a>
                 </li>
+                {{/if}}
 
             </ul>
             <div class="dropdown col-md-3 ">
@@ -26,7 +28,7 @@
                         {{else}}
                         Account
                     {{/if}}
-                    
+
                 </button>
                 <ul class="dropdown-menu">
                     {{#if user}}
