@@ -7,11 +7,32 @@ module.exports={
         return new Promise(async (resolve,reject)=>{
             userData.Password= await bcrypt.hash(userData.Password,10)
             db.get().collection(collection.USER_COLLECTION).insertOne(userData).then()
-            console.log(data);
-            resolve(data.ops[0])
-
+            console.log(userData);
+            resolve(userData.Password)
         })
-        
-
+    },
+    doLogin:(userData)=>{
+        return new Promise(async (resolve,reject)=>{
+            let loginStatus=false
+            let responce={}
+            let user=await db.get().collection(collection.USER_COLLECTION).findOne({Email:userData.Email})
+            
+            if(user){
+                bcrypt.compare(userData.Password,user.Password).then((status)=>{
+                    if(status){
+                        console.log("login success")
+                        responce.user=user
+                        responce.status=true
+                        resolve(responce)
+                    }else{
+                        console.log("login failed")
+                        resolve({status:false})
+                    }
+                })
+            }else{
+                console.log("login success")
+                resolve({status:false})
+            }
+        })
     }
 }

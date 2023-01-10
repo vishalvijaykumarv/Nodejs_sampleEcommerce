@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 router.get('/login',(req,res)=>{
   res.render('user/login')
 })
+
 router.get('/signup',(req,res)=>{
   res.render('user/signup')
 })
@@ -20,7 +21,20 @@ router.get('/signup',(req,res)=>{
 router.post('/signup',(req,res)=>{
   userHelpers.doSignup(req.body).then((responce)=>{
     console.log(responce)
+    res.render('user/login')
   })
 })
+
+router.post('/login',(req,res)=>{
+  userHelpers.doLogin(req.body).then((responce)=>{
+    if(responce.status){
+      res.redirect('/')
+    }else{
+      res.redirect('/login')
+    }
+  })
+
+})
+
 
 module.exports = router;
