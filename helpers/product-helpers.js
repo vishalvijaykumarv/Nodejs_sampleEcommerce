@@ -1,13 +1,11 @@
 var db=require('../config/connection')
 var collection=require('../config/collections')
+const { response } = require('express')
 var objectId=require('mongodb').ObjectId
 module.exports={
 
     addProduct:(product,callback)=>{
-        // console.log(product)
-
         db.get().collection(collection.PRODUCT_COLLECTION).insertOne(product).then((data)=>{
-            // console.log(data)
             callback(data.insertedId.toString())
         })
 
@@ -22,8 +20,29 @@ module.exports={
         return new Promise((resolve,reject)=>{
             console.log(prodId)
             console.log(objectId(prodId))
-            db.get().collection(collection.PRODUCT_COLLECTION).removeOne({_id:objectId(prodId)}).then((responce)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id:objectId(prodId)}).then((responce)=>{
                 resolve(responce)
+            })
+        })
+    },
+    getProductDetailes:(prodId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:objectId(prodId)}).then((product)=>{
+                resolve(product)
+            })
+        })
+    },
+    updateProduct:(prodId,proDetails)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:objectId(prodId)},{
+                $set:{
+                    Name:proDetails.Name,
+                    Description:proDetails.Description,
+                    Price:proDetails.Price,
+                    category:proDetails.category
+                }
+            }).then((response)=>{
+                resolve()
             })
         })
     }
