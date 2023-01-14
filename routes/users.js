@@ -1,5 +1,5 @@
 var express = require('express');
-const { USER_COLLECTION } = require('../config/collections');
+// const { USER_COLLECTION } = require('../config/collections');
 const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
 const userHelpers=require('../helpers/user-helper')
@@ -12,6 +12,7 @@ const verifyLogin=(req,res,next)=>{
     res.redirect('/login')
   }
 }
+
 router.get('/', async function(req, res, next) {
   let user=req.session.user
   console.log(user);
@@ -19,6 +20,7 @@ router.get('/', async function(req, res, next) {
   if(req.session.user){
     cartCount=await userHelpers.getCartCount(req.session.user._id)
   }
+
   productHelpers.getAllProducts().then((products)=>{
     res.render('user/view-products',{products,user,cartCount})
   })
@@ -75,7 +77,12 @@ router.get('/cart',verifyLogin,async(req,res)=>{
 router.get('/add-to-cart/:id',(req,res)=>{
   console.log('api call');
   userHelpers.addToCart(req.params.id, req.session.user._id).then(()=>{
+    // console.log(res);
+    // console.log(req.session);
     res.json({status:true})
+    // res.redirect('/')
+    // res.render('/')
+    
   })
 })
 

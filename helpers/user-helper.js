@@ -44,6 +44,7 @@ module.exports={
                         $push:{products:objectId(proId)}
                     }
                 ).then((responce)=>{
+                    resolve()
                 })
             }else{
                 let cartObj={
@@ -53,7 +54,9 @@ module.exports={
                 db.get().collection(collection.CART_COLLECTION).insertOne(cartObj).then((resolve)=>{
                     resolve()
                 })
+                
             }
+
         })
     },
     getCartProducts:(userid)=>{
@@ -83,7 +86,7 @@ module.exports={
         })
     },
     getCartCount:(userId)=>{
-        return new Promise(async (resolve,reject)=>{
+        return new Promise(async(resolve,reject)=>{
             let count = 0
             let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
             if (cart){

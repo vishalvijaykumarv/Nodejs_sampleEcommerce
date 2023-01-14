@@ -1,15 +1,16 @@
-function addToCart(proID){
+function addToCart(proId){
+    // console.log(proId);
     $.ajax({
-        url:'/add-to-cart/'+proID,
+        url:'/add-to-cart/'+proId,
         method:'get',
         success:(response)=>{
-            alert(response)
-            // if(response.status){
-            //     let count=$('#cart-count').html()
-            //     count=parseInt(count)+1
-            //     $("#cart-count").html(count)
-            // }
+            if(response.status){
+                let count=$('#cart-count').html()
+                count=parseInt(count)+1
+                $("#cart-count").html(count)
+            }
             // alert(response)
         }
     })
+    console.log("java script is working");
 }
