@@ -8,7 +8,7 @@ module.exports={
         return new Promise(async (resolve,reject)=>{
             userData.Password= await bcrypt.hash(userData.Password,10)
             db.get().collection(collection.USER_COLLECTION).insertOne(userData).then()
-            console.log(userData);
+            // console.log(userData);
             resolve(userData.Password)
         })
     },
@@ -20,38 +20,58 @@ module.exports={
             if(user){
                 bcrypt.compare(userData.Password,user.Password).then((status)=>{
                     if(status){
-                        console.log("login success")
+                        // console.log("login success")
                         responce.user=user
                         responce.status=true
                         resolve(responce)
                     }else{
-                        console.log("login failed")
+                        // console.log("login failed")
                         resolve({status:false})
                     }
                 })
             }else{
-                console.log("login success")
+                // console.log("login success")
                 resolve({status:false})
             }
         })
     },
     addToCart:(proId,userId)=>{
+        let proObj={
+            item:objectId(proId),
+            quantity:1
+        }
         return new Promise(async (resolve,reject)=>{
             let userCart=await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
             if(userCart){
-                db.get().collection(collection.CART_COLLECTION).updateOne({user:objectId(userId)},
+                let proExist=userCart.products.findIndex(product=> product.item==proId)
+                console.log(proExist);
+                if(proExist!=-1){
+                    db.get().collection(collection.CART_COLLECTION)
+                    .updateOne({'products.item':objectId(proId)},
                     {
-                        $push:{products:objectId(proId)}
+                        $inc:{'products.$.quantity':1}
+                    }
+                    ).then((responce)=>{
+                        resolve()
+                    })
+                }else{
+                db.get().collection(collection.CART_COLLECTION)
+                .updateOne({user:objectId(userId)},
+                    {
+
+                        $push:{products:proObj}
+                        
                     }
                 ).then((responce)=>{
                     resolve()
                 })
+            }
             }else{
                 let cartObj={
                     user:objectId(userId),
-                    products:[objectId(proId)]
+                    products:[proObj]
                 }
-                db.get().collection(collection.CART_COLLECTION).insertOne(cartObj).then((resolve)=>{
+                db.get().collection(collection.CART_COLLECTION).insertOne(cartObj).then((responce)=>{
                     resolve()
                 })
                 
@@ -66,23 +86,25 @@ module.exports={
                     $match:{user:objectId(userid)}
                 },
                 {
+                    $unwind:'$products'
+                },
+                {
+                    $project:{
+                        item:'$products.item',
+                        quantity:'$products.quantity'
+                    }
+                },
+                {
                     $lookup:{
                         from:collection.PRODUCT_COLLECTION,
-                        let:{prodList:'$products'},
-                        pipeline:[
-                            {
-                                $match:{
-                                    $expr:{
-                                        $in:['$_id','$$prodList']
-                                    }
-                                }
-                            }
-                        ],
-                        as:'cartItems'
+                        localField:'item',
+                        foreignField:'_id',
+                        as:'products'
                     }
                 }
             ]).toArray()
-            resolve(cartItems[0].cartItems)
+            // console.log(cartItems)
+            resolve(cartItems)
         })
     },
     getCartCount:(userId)=>{

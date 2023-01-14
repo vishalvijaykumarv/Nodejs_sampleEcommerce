@@ -35,13 +35,13 @@ router.get('/delete-product/:id',(req,res)=>{
 
 router.get('/edit-product/:id',async (req,res)=>{
   let product=await productHelpers.getProductDetailes(req.params.id)
-  console.log(product)
+  // console.log(product)
   res.render('admin/edit-product',{product})
 })
 
 router.post('/edit-product/:id',(req,res)=>{
   productHelpers.updateProduct(req.params.id, req.body).then(()=>{
-    console.log(req.params.id);
+    // console.log(req.params.id);
     res.redirect('/admin')
     if(req.files.image){
       let image=req.files.image

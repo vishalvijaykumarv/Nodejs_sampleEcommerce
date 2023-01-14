@@ -12,5 +12,5 @@ function addToCart(proId){
             // alert(response)
         }
     })
-    console.log("java script is working");
+    // console.log("java script is working");
 }

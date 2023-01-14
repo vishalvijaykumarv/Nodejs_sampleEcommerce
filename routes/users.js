@@ -15,7 +15,7 @@ const verifyLogin=(req,res,next)=>{
 
 router.get('/', async function(req, res, next) {
   let user=req.session.user
-  console.log(user);
+  // console.log(user);
   let cartCount=null
   if(req.session.user){
     cartCount=await userHelpers.getCartCount(req.session.user._id)
@@ -42,7 +42,7 @@ router.get('/signup',(req,res)=>{
 
 router.post('/signup',(req,res)=>{
   userHelpers.doSignup(req.body).then((responce)=>{
-    console.log(responce)
+    // console.log(responce)
     req.session.loggedIn=true
     req.session.user=responce
     res.redirect('/')
@@ -70,12 +70,12 @@ router.get('/logout',(req,res)=>{
 
 router.get('/cart',verifyLogin,async(req,res)=>{
   let products= await userHelpers.getCartProducts(req.session.user._id)
-  console.log(products);
+  // console.log(products);
   res.render('user/cart',{products,user:req.session.user})
 })
 
 router.get('/add-to-cart/:id',(req,res)=>{
-  console.log('api call');
+  // console.log('api call');
   userHelpers.addToCart(req.params.id, req.session.user._id).then(()=>{
     // console.log(res);
     // console.log(req.session);
