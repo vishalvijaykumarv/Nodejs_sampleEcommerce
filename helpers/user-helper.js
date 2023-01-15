@@ -187,9 +187,9 @@ module.exports = {
             // resolve(total)
         })
     },
-    placeOrder:(order,prodcuts,total)=>{
+    placeOrder:(order,products,total)=>{
         return new Promise((resolve,reject)=>{
-            console.log(order,prodcuts,total);
+            console.log(order,products,total);
             let status=order['payment-method']==='COD'?'placed':'pending'
             let orderObj={
                 deliveryDetailes:{
@@ -199,9 +199,10 @@ module.exports = {
                 },
                 userId:objectId(order.userId),
                 paymentMethod:order['payment-method'],
-                products:prodcuts,
+                products:products,
                 totalAmount:total,
-                status:status
+                status:status,
+                date:new Date()
             }
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((responce)=>{
                 db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
@@ -213,7 +214,7 @@ module.exports = {
         return new Promise(async(resolve,reject)=>{
             let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
             console.log(cart);
-            resolve(cart.prodcuts)
+            resolve(cart.products)
         })
     }
 }
