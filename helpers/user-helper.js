@@ -183,8 +183,8 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            // resolve(total[0].total)
-            resolve(total)
+            resolve(total[0].total)
+            // resolve(total)
         })
     },
     placeOrder:(order,prodcuts,total)=>{
