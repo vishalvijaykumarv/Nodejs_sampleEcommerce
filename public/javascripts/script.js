@@ -14,3 +14,4 @@ function addToCart(proId){
     })
     // console.log("java script is working");
 }
+

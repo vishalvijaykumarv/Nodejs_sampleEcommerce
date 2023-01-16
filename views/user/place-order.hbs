@@ -1,16 +1,14 @@
 <section>
     <div class="container mt-5">
-        <form action="/place-order" method="post" id="checkout-form">
+        <form action="/place-order" id="checkout-form">
             <div class="row">
                 <div class="col-md-6">
                     <h2>Enter Delivery Detailes</h2><br>
                     <div>
                         <label for="">Address</label>
                         <input class="form-control" type="text" name="address" id="address">
-                        
                         <label for="">Pincode</label>
                         <input class="form-control" type="text" name="pincode" id="pincode">
-                        
                         <label for="">Mobile</label>
                         <input class="form-control" type="text" name="mobile" id="mobile">
                         <input type="text" name="userId" id="" value="{{user._id}}" hidden>
@@ -37,22 +35,28 @@
         </form>
     </div>
 </section>
-    <script>
-        $("#checkout-form").submit((e)=>{
-            e.preventDefault()
-            $.ajax({
-                url:'/place-order',
-                method:'post',
-                data:$('#checkout-form').serialize(),
-                success:(responce)=>{
-                    alert(responce)
-                   // if(responce.status){
-                   //    location.href='/'
-                   // }
+
+
+
+<script>
+    $("#checkout-form").submit((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:'/place-order',
+            method:'post',
+            data:$('#checkout-form').serialize(),
+            success:(responce)=>{
+                alert(responce)
+                if(responce.status){
+                    location.href='/order-success'
                 }
-            })
+            }
         })
-    </script>
+    })
+</script>
+
+
+
 <style>
     input[type=radio]{
         width: 20px;
