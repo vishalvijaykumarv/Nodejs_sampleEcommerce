@@ -1,5 +1,4 @@
 function addToCart(proId){
-    // console.log(proId);
     $.ajax({
         url:'/add-to-cart/'+proId,
         method:'get',
@@ -9,9 +8,7 @@ function addToCart(proId){
                 count=parseInt(count)+1
                 $("#cart-count").html(count)
             }
-            // alert(response)
         }
     })
-    // console.log("java script is working");
 }
 
