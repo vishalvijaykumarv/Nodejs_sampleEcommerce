@@ -42,7 +42,7 @@ router.get('/edit-product/:id',async (req,res)=>{
 router.post('/edit-product/:id',(req,res)=>{
   productHelpers.updateProduct(req.params.id, req.body).then(()=>{
 
-    console.log(req.files);
+    // console.log(req.files);
     res.redirect('/admin')
     if(req.files.image){
       let image=req.files.image

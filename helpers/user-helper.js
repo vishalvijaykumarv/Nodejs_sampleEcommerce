@@ -44,7 +44,7 @@ module.exports = {
             let userCart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
             if (userCart) {
                 let proExist = userCart.products.findIndex(product => product.item == proId)
-                console.log(proExist);
+                // console.log(proExist);
                 if (proExist != -1) {
                     db.get().collection(collection.CART_COLLECTION)
                         .updateOne({ user: objectId(userId), 'products.item': objectId(proId) },
@@ -189,7 +189,7 @@ module.exports = {
     },
     placeOrder:(order,products,total)=>{
         return new Promise((resolve,reject)=>{
-            console.log(order,products,total);
+            // console.log(order,products,total);
             let status=order['payment-method']==='COD'?'placed':'pending'
             let orderObj={
                 deliveryDetailes:{
@@ -206,23 +206,23 @@ module.exports = {
             }
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((responce)=>{
                 db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
-                resolve(responce)
+                resolve(responce.insertedId)
             })
         })
     },
     getCartProductList:(userId)=>{
         return new Promise(async(resolve,reject)=>{
             let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
-            console.log(cart);
+            // console.log(cart);
             resolve(cart.products)
         })
     },
     getUserOrders:(userId)=>{
         return new Promise(async(resolve,reject)=>{
-            console.log(userId)
+            // console.log(userId)
             let orders=await db.get().collection(collection.ORDER_COLLECTION)
             .find({userId:objectId(userId)}).toArray()
-            console.log(orders)
+            // console.log(orders)
             resolve(orders)
         })
     },
@@ -257,7 +257,7 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            console.log(orderItems)
+            // console.log(orderItems)
             resolve(orderItems)
         })
     }
