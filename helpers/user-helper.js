@@ -183,8 +183,10 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            resolve(total[0].total)
-            // resolve(total)
+            if(total!=''){
+                resolve(total[0].total)
+            }
+            resolve(total)
         })
     },
     placeOrder:(order,products,total)=>{
@@ -219,10 +221,10 @@ module.exports = {
     },
     getUserOrders:(userId)=>{
         return new Promise(async(resolve,reject)=>{
-            // console.log(userId)
+            console.log(userId)
             let orders=await db.get().collection(collection.ORDER_COLLECTION)
             .find({userId:objectId(userId)}).toArray()
-            // console.log(orders)
+            console.log(orders)
             resolve(orders)
         })
     },
@@ -257,8 +259,8 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            // console.log(orderItems)
+            console.log(orderItems)
             resolve(orderItems)
         })
-    }
+    } 
 }
