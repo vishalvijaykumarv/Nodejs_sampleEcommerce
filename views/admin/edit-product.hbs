@@ -1,45 +1,51 @@
 <section>
     <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <form action="/admin/edit-product/{{product._id}}" method="post" role="form" enctype="multipart/form-data">
-                <legend>Update Products Informations Here</legend>
+        <div class="row">
+            <div class="col-md-6">
+                <form action="/admin/edit-product/{{product._id}}" method="post" role="form"
+                    enctype="multipart/form-data">
+                    <legend>Update Products Informations Here</legend>
 
-                <div class="form-group">
-                    <label for="Name">Name</label>
-                    <input type="text" class="form-control" name="Name" id="Name" placeholder="Product name" value="{{product.Name}}">
-                </div>
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-control" name="Name" id="Name" placeholder="Product name"
+                            value="{{product.Name}}">
+                    </div>
 
-                <div class="form-group">
-                    <label for="cato">Category</label>
-                    <input type="text" class="form-control" name="category" id="category" placeholder="category" value="{{product.category}}">
-                </div>
+                    <div class="form-group">
+                        <label for="cato">Category</label>
+                        <input type="text" class="form-control" name="category" id="category" placeholder="category"
+                            value="{{product.category}}">
+                    </div>
 
-                <div class="form-group">
-                    <label for="price">Price</label>
-                    <input type="text" class="form-control" name="price" id="price" placeholder="price" value="{{product.price}}">
-                </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" name="price" id="price" placeholder="price"
+                            value="{{product.price}}">
+                    </div>
 
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <input type="text" class="form-control" name="description" id="description" placeholder="Description" value="{{product.description}}">
-                </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" name="description" id="description"
+                            placeholder="Description" value="{{product.description}}">
+                    </div>
 
-                <div class="form-group">
-                    <label for="image">Image</label>
-                    <img src="/product-images/{{product._id}}.jpg" alt="" style="width:100px;height:auto" id="imgView" class="pt-3">
-                    <input type="file" class="form-control" name="image" id="image" onchange="viewImage(event)">
-                </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <img src="/product-images/{{product._id}}.jpg" alt="" style="width:100px;height:auto"
+                            id="imgView" class="pt-3">
+                        <input type="file" class="form-control" name="image" id="image" onchange="viewImage(event)">
+                    </div>
 
-                <button type="submit" class="btn btn-success">Submit</button>
-            </form>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </section>
 
 <script>
-    function viewImage(event){
-        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
     }
 </script>

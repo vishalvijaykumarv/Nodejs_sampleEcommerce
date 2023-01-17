@@ -7,10 +7,10 @@ var userRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var hbs = require('express-handlebars');
 var app = express();
-var fileUpload=require('express-fileupload')
-var session=require('express-session')
+var fileUpload = require('express-fileupload')
+var session = require('express-session')
 
-var db=require('./config/connection')
+var db = require('./config/connection')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,9 +28,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({secret:"Key",cookie:{maxAge:60000000}}))
-db.connect((err)=>{
-  if(err) console.log("Connection Error"+err)
+app.use(session({ secret: "Key", cookie: { maxAge: 60000000 } }))
+db.connect((err) => {
+  if (err) console.log("Connection Error" + err)
   else console.log("Connected Database")
 
 })
@@ -39,12 +39,12 @@ app.use('/', userRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

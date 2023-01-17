@@ -1,7 +1,8 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Shoping Cart</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -12,7 +13,8 @@
                     <a class="nav-link" href="/">Products <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cart">Cart <span class="badge badge-dark" id="cart-count">{{cartCount}}</span> </a>
+                    <a class="nav-link" href="/cart">Cart <span class="badge badge-dark"
+                            id="cart-count">{{cartCount}}</span> </a>
                 </li>
                 <li class="nav-item">
                     {{#if user}}
@@ -22,26 +24,31 @@
 
             </ul>
             <div class="dropdown col-md-3 ">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     {{#if user}}
-                        {{user.Email}}
-                        {{else}}
-                        Account
+                    {{user.Email}}
+                    {{else}}
+                    Account
                     {{/if}}
 
                 </button>
                 <ul class="dropdown-menu">
                     {{#if user}}
-                        <li><a class="dropdown-item" href="/logout">logout</a></li>
-                        {{else}}
-                        <li><a class="dropdown-item" href="/login">login</a></li>
+                    <li><a class="dropdown-item" href="/logout">logout</a></li>
+                    {{else}}
+                    <li><a class="dropdown-item" href="/login">login</a></li>
                     {{/if}}
-                    
+
                 </ul>
             </div>
         </div>
     </nav>
 </header>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+    crossorigin="anonymous"></script>

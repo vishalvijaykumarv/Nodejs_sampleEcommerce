@@ -1,27 +1,27 @@
 {{!-- Card section Starts here --}}
-    <section>
-        <div class="container mt-5">
-            <div class="row">
-                {{#each products}}
-                <div class="col-md-3 p-3">
-                    <div class="card" style="width: 15rem; height:24rem"> 
-                        <img class="card-img-top" 
-                             src='/product-images/{{this._id}}.jpg' 
-                             alt="Card image cap"
-                             style="height: 12rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{this.Name}}</h5>
-                            <p class="card-text">RS.{{this.price}}</p>
-                            <p class="card-text">Quantity : {{this.quantity}}</p>
-                            {{!-- <button onclick="addToCart('{{this._id}}')" class="btn btn-primary" >Add to Cart</button> --}}
-                        </div>
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-3 p-3">
+                <div class="card" style="width: 15rem; height:24rem">
+                    <img class="card-img-top" src='/product-images/{{this._id}}.jpg' alt="Card image cap"
+                        style="height: 12rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.Name}}</h5>
+                        <p class="card-text">RS.{{this.price}}</p>
+                        <p class="card-text">Quantity : {{this.quantity}}</p>
+                        {{!-- <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to Cart</button>
+                        --}}
                     </div>
                 </div>
-                {{/each}}
             </div>
+            {{/each}}
         </div>
-    </section>
+    </div>
+</section>
 {{!-- Card section Ends here --}}
 
-  </body>
+</body>
+
 </html>

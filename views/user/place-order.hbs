@@ -14,7 +14,7 @@
                         <input type="text" name="userId" id="" value="{{user._id}}" hidden>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="container mt-5 ml-5 checkout">
                         <h5>Total Amount : Rs.{{total}}</h5>
@@ -22,10 +22,10 @@
                         <div class="payment">
                             <p>Payment method</p>
                             <label class="radio-inline">
-                                <input type="radio" name="payment-method" value="COD" checked > COD
+                                <input type="radio" name="payment-method" value="COD" checked> COD
                             </label>
                             <label class="radio-inline mt-2">
-                                <input type="radio" name="payment-method" value="Online"> Online payment 
+                                <input type="radio" name="payment-method" value="Online"> Online payment
                             </label>
                             <button class="btn btn-primary float-right" type="submit">Checkout</button>
                         </div>
@@ -39,16 +39,16 @@
 
 
 <script>
-    $("#checkout-form").submit((e)=>{
+    $("#checkout-form").submit((e) => {
         e.preventDefault()
         $.ajax({
-            url:'/place-order',
-            method:'post',
-            data:$('#checkout-form').serialize(),
-            success:(responce)=>{
+            url: '/place-order',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (responce) => {
                 alert(responce)
-                if(responce.status){
-                    location.href='/order-success'
+                if (responce.status) {
+                    location.href = '/order-success'
                 }
             }
         })
@@ -58,20 +58,23 @@
 
 
 <style>
-    input[type=radio]{
+    input[type=radio] {
         width: 20px;
         height: 20px;
     }
-    label.radio-inline{
+
+    label.radio-inline {
         display: flex;
         align-items: center;
     }
-    .checkout{
+
+    .checkout {
         border: 1px solid;
         border-radius: 3px;
         padding: 30px;
     }
-    .payment{
+
+    .payment {
         padding-bottom: 16px;
     }
 </style>

@@ -15,7 +15,7 @@ const verifyLogin=(req,res,next)=>{
 
 router.get('/', async function(req, res, next) {
   let user=req.session.user
-  // console.log(user);
+  
   let cartCount=null
   if(req.session.user){
     cartCount=await userHelpers.getCartCount(req.session.user._id)
@@ -42,7 +42,7 @@ router.get('/signup',(req,res)=>{
 
 router.post('/signup',(req,res)=>{
   userHelpers.doSignup(req.body).then((responce)=>{
-    // console.log(responce)
+    
     req.session.loggedIn=true
     req.session.user=responce
     res.redirect('/')
@@ -74,7 +74,7 @@ router.get('/cart',verifyLogin,async(req,res)=>{
 
   if (totalValue=="") {
     // res.render('user/cart',{'user':req.session.user._id});
-    res.render('user/view-products')
+    res.render('user/view-products',{'user':req.session.user._id})
     } else {
     res.render('user/cart',{products,'user':req.session.user._id,totalValue})
     }
@@ -88,7 +88,6 @@ router.get('/add-to-cart/:id',(req,res)=>{
 })
 
 router.post('/change-product-quantity',(req,res,next)=>{
-  // console.log(req.body);
   userHelpers.changeProductQuantity(req.body).then(async(responce)=>{
     responce.total=await userHelpers.getTotalAmount(req.body.user)
     res.json(responce)
@@ -104,10 +103,8 @@ router.post('/place-order',async(req,res)=>{
   let products=await userHelpers.getCartProductList(req.body.userId)
   let totalPrice=await userHelpers.getTotalAmount(req.body.userId)
   userHelpers.placeOrder(req.body,products,totalPrice).then((responce)=>{
-    console.log(responce)
     res.json({status:true})
   })
-  // console.log(req.body)
 })
 
 router.get('/order-success',(req,res)=>{
@@ -123,11 +120,5 @@ router.get('/view-order-products/:id',async(req,res)=>{
   let products=await userHelpers.getOrderProducts(req.params.id)
   res.render('user/view-order-products',{user:req.session.user,products})
 })
-  // let products=await userHelpers.getCartProductList(req.body.userId)
-  // let totalPrice=await userHelpers.getTotalAmount(req.body.userId)
-  // userHelpers.placeOrder(req.body,products,totalPrice).then((responce)=>{
-  //    res.json({status:true})
-  // })
-
 
 module.exports = router;
